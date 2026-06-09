@@ -55,54 +55,54 @@ export function ProfileForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-xl shadow-slate-950/20"
+      className="rounded-2xl border border-white/35 bg-[#fffaf0]/45 p-4 shadow-[0_20px_60px_rgba(71,85,105,0.14)] backdrop-blur-xl animate-soft-scale-in sm:rounded-3xl sm:p-6"
     >
       <div className="grid gap-5">
         <label>
-          <span className="text-sm font-medium text-slate-200">Email</span>
+          <span className="text-sm font-medium text-slate-700">Email</span>
           <input
             value={email}
             disabled
-            className="mt-3 w-full rounded-xl border border-white/10 bg-slate-950/50 px-4 py-3 text-slate-400 outline-none"
+            className="mt-3 w-full rounded-xl border border-white/45 bg-[#f4efe4]/45 px-4 py-3 text-slate-500 outline-none"
           />
         </label>
 
         <label>
-          <span className="text-sm font-medium text-slate-200">Full name</span>
+          <span className="text-sm font-medium text-slate-700">Full name</span>
           <input
             value={nameValue}
             onChange={(event) => setNameValue(event.target.value)}
             placeholder="Nama lengkap"
-            className="mt-3 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-violet-300"
+            className="mt-3 w-full rounded-xl border border-white/45 bg-[#fffaf0]/35 px-4 py-3 text-slate-800 outline-none transition-all duration-300 placeholder:text-slate-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/30 focus:bg-[#fffaf0]/50"
           />
         </label>
 
         <label>
-          <span className="text-sm font-medium text-slate-200">Username</span>
+          <span className="text-sm font-medium text-slate-700">Username</span>
           <input
             value={usernameValue}
             onChange={(event) => setUsernameValue(event.target.value)}
             placeholder="username"
-            className="mt-3 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-violet-300"
+            className="mt-3 w-full rounded-xl border border-white/45 bg-[#fffaf0]/35 px-4 py-3 text-slate-800 outline-none transition-all duration-300 placeholder:text-slate-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/30 focus:bg-[#fffaf0]/50"
           />
         </label>
       </div>
 
       {message && (
-        <p className="mt-5 rounded-xl border border-emerald-300/20 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-100">
+        <p className="mt-5 rounded-xl border border-white/40 bg-[#fffaf0]/35 px-4 py-3 text-sm text-emerald-800">
           {message}
         </p>
       )}
 
       {error && (
-        <p className="mt-5 rounded-xl border border-rose-300/20 bg-rose-400/10 px-4 py-3 text-sm text-rose-100">
+        <p className="mt-5 rounded-xl border border-white/40 bg-[#fffaf0]/35 px-4 py-3 text-sm text-rose-800">
           {error}
         </p>
       )}
 
       <button
         disabled={loading}
-        className="mt-6 rounded-xl bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 px-5 py-3 font-semibold text-white shadow-lg shadow-violet-950/30 transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60"
+        className="mt-6 w-full rounded-xl bg-gradient-to-r from-emerald-700 to-teal-600 px-5 py-3 font-semibold text-white shadow-lg shadow-emerald-700/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:scale-100 sm:w-auto"
       >
         {loading ? "Menyimpan..." : "Simpan Profile"}
       </button>

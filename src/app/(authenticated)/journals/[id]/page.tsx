@@ -47,7 +47,7 @@ function PillList({
       {items.map((item) => (
         <span
           key={item}
-          className="rounded-full border border-white/10 bg-slate-950/55 px-3 py-1 text-sm text-slate-200"
+          className="rounded-full border border-white/40 bg-[#fffaf0]/35 px-3 py-1 text-sm text-slate-700"
         >
           {item}
         </span>
@@ -93,17 +93,19 @@ export default async function JournalDetailPage({ params }: DetailPageProps) {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+      <div className="flex flex-col justify-between gap-4 animate-soft-fade-up sm:flex-row sm:items-end">
         <div>
-          <p className="text-sm font-medium text-violet-200">
+          <p className="text-sm font-medium text-emerald-800">
             {formatDateId(journal.journal_date)}
           </p>
-          <h1 className="mt-2 text-3xl font-bold">Detail jurnal</h1>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
+            Detail jurnal
+          </h1>
         </div>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <Link
             href={`/journals/${journal.id}/edit`}
-            className="rounded-xl bg-white px-5 py-3 font-semibold text-slate-950 transition hover:bg-slate-100"
+            className="w-full rounded-xl bg-gradient-to-r from-emerald-700 to-teal-600 px-5 py-3 text-center font-semibold text-white shadow-lg shadow-emerald-700/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] hover:opacity-90 sm:w-auto"
           >
             Edit
           </Link>
@@ -111,7 +113,7 @@ export default async function JournalDetailPage({ params }: DetailPageProps) {
         </div>
       </div>
 
-      <section className="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-xl shadow-slate-950/20">
+      <section className="rounded-2xl border border-white/35 bg-[#fffaf0]/45 p-4 shadow-[0_20px_60px_rgba(71,85,105,0.14)] backdrop-blur-xl animate-soft-scale-in sm:rounded-3xl sm:p-6">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
             <span className="text-6xl" aria-hidden="true">
@@ -119,39 +121,39 @@ export default async function JournalDetailPage({ params }: DetailPageProps) {
             </span>
             <div>
               <p className="text-2xl font-bold">{moodLabels[journal.mood]}</p>
-              <p className="mt-1 text-sm text-slate-300">
+              <p className="mt-1 text-sm text-slate-600">
                 Mood yang kamu catat
               </p>
             </div>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-slate-950/55 px-5 py-4">
-            <p className="text-sm text-slate-300">Intensity</p>
+          <div className="rounded-2xl border border-white/40 bg-[#fffaf0]/35 px-5 py-4">
+            <p className="text-sm text-slate-600">Intensity</p>
             <p className="mt-1 text-3xl font-bold">{journal.intensity}/10</p>
           </div>
         </div>
 
         <div className="mt-8">
           <h2 className="text-lg font-semibold">Catatan</h2>
-          <p className="mt-3 whitespace-pre-wrap text-sm leading-7 text-slate-300">
+          <p className="mt-3 whitespace-pre-wrap text-sm leading-7 text-slate-600">
             {journal.note || "Tidak ada catatan tambahan."}
           </p>
         </div>
       </section>
 
       <section className="grid gap-4 lg:grid-cols-3">
-        <article className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-slate-950/20">
+        <article className="rounded-2xl border border-white/35 bg-[#fffaf0]/45 p-4 shadow-[0_20px_60px_rgba(71,85,105,0.14)] backdrop-blur-xl animate-soft-fade-up sm:rounded-3xl sm:p-6">
           <h2 className="text-lg font-semibold">Factors</h2>
           <div className="mt-4">
             <PillList items={factors} emptyText="Belum ada faktor." />
           </div>
         </article>
-        <article className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-slate-950/20">
+        <article className="rounded-2xl border border-white/35 bg-[#fffaf0]/45 p-4 shadow-[0_20px_60px_rgba(71,85,105,0.14)] backdrop-blur-xl animate-soft-fade-up sm:rounded-3xl sm:p-6">
           <h2 className="text-lg font-semibold">Tags</h2>
           <div className="mt-4">
             <PillList items={tags} emptyText="Belum ada tag." />
           </div>
         </article>
-        <article className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-slate-950/20">
+        <article className="rounded-2xl border border-white/35 bg-[#fffaf0]/45 p-4 shadow-[0_20px_60px_rgba(71,85,105,0.14)] backdrop-blur-xl animate-soft-fade-up sm:rounded-3xl sm:p-6">
           <h2 className="text-lg font-semibold">Activities</h2>
           <div className="mt-4">
             <PillList items={activities} emptyText="Belum ada aktivitas." />

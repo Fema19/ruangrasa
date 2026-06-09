@@ -15,10 +15,10 @@ export default async function ProfilePage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <p className="text-sm font-medium text-violet-200">Profile</p>
-        <h1 className="mt-2 text-3xl font-bold">Data akun</h1>
-        <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300">
+      <div className="animate-soft-fade-up">
+        <p className="text-sm font-medium text-emerald-800">Profile</p>
+        <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Data akun</h1>
+        <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
           Update nama dan username yang dipakai di RuangRasa.
         </p>
       </div>

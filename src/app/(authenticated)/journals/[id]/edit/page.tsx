@@ -45,10 +45,12 @@ export default async function EditJournalPage({ params }: EditPageProps) {
 
   return (
     <div className="space-y-6">
-      <div>
-        <p className="text-sm font-medium text-violet-200">Edit jurnal</p>
-        <h1 className="mt-2 text-3xl font-bold">Perbarui catatanmu</h1>
-        <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300">
+      <div className="animate-soft-fade-up">
+        <p className="text-sm font-medium text-emerald-800">Edit jurnal</p>
+        <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
+          Perbarui catatanmu
+        </h1>
+        <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
           Sesuaikan mood, tanggal, faktor, aktivitas, atau catatan yang sudah
           kamu tulis.
         </p>

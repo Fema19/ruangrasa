@@ -13,6 +13,7 @@ export function DeleteJournalForm({
 }: DeleteJournalFormProps) {
   return (
     <form
+      className={compact ? "flex-1 sm:flex-none" : "w-full sm:w-auto"}
       action={deleteJournalAction.bind(null, journalId)}
       onSubmit={(event) => {
         if (!window.confirm("Hapus jurnal ini?")) {
@@ -22,9 +23,9 @@ export function DeleteJournalForm({
     >
       <button
         className={
-          compact
-            ? "rounded-lg border border-rose-300/20 px-3 py-2 text-sm font-semibold text-rose-100 transition hover:bg-rose-400/10"
-            : "rounded-xl border border-rose-300/20 px-5 py-3 font-semibold text-rose-100 transition hover:bg-rose-400/10"
+        compact
+            ? "w-full rounded-lg border border-white/45 bg-[#fffaf0]/35 px-3 py-2 text-sm font-semibold text-rose-800 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf0]/50"
+            : "w-full rounded-xl border border-white/45 bg-[#fffaf0]/35 px-5 py-3 font-semibold text-rose-800 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf0]/50 sm:w-auto"
         }
       >
         Delete

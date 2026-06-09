@@ -22,11 +22,22 @@ export const moodEmojis: Record<Mood, string> = {
   empty: "🫥",
 };
 
+export const moodColors: Record<Mood, string> = {
+  happy: "border-amber-300/60 bg-amber-200/70 text-amber-900",
+  calm: "border-emerald-300/60 bg-emerald-200/60 text-emerald-900",
+  neutral: "border-stone-300/60 bg-stone-200/70 text-stone-800",
+  sad: "border-sky-300/60 bg-sky-200/60 text-sky-900",
+  anxious: "border-orange-300/60 bg-orange-200/60 text-orange-900",
+  angry: "border-rose-300/60 bg-rose-200/60 text-rose-900",
+  tired: "border-slate-300/60 bg-slate-200/70 text-slate-800",
+  empty: "border-zinc-300/60 bg-zinc-200/70 text-zinc-800",
+};
+
 export const moodOptions = Object.keys(moodLabels) as Mood[];
 
 export const factorOptions = [
   "work",
-  "school",
+  "education",
   "family",
   "relationship",
   "money",
@@ -39,40 +50,63 @@ export const factorOptions = [
 export const activityOptions = [
   "sleep",
   "exercise",
-  "coding",
-  "gaming",
-  "study",
-  "talking",
+  "hobby",
+  "learning",
+  "socializing",
   "praying",
   "music",
   "walking",
   "rest",
 ] as const;
 
-export const factorLabels: Record<(typeof factorOptions)[number], string> = {
+export const factorLabels = {
   work: "Pekerjaan",
-  school: "Sekolah",
+  education: "Pendidikan",
+  school: "Pendidikan",
   family: "Keluarga",
   relationship: "Relasi",
   money: "Keuangan",
   health: "Kesehatan",
-  future: "Masa depan",
+  future: "Masa Depan",
   loneliness: "Kesepian",
-  "self-esteem": "Kepercayaan diri",
-};
+  "self-esteem": "Kepercayaan Diri",
+} satisfies Record<string, string>;
 
-export const activityLabels: Record<(typeof activityOptions)[number], string> = {
+export const activityLabels = {
   sleep: "Tidur",
   exercise: "Olahraga",
-  coding: "Coding",
-  gaming: "Gaming",
+  hobby: "Hobi",
+  coding: "Hobi",
+  gaming: "Hobi",
+  learning: "Belajar",
   study: "Belajar",
-  talking: "Bercerita",
-  praying: "Berdoa",
+  socializing: "Bersosialisasi",
+  talking: "Bersosialisasi",
+  praying: "Ibadah",
   music: "Musik",
-  walking: "Jalan kaki",
+  walking: "Jalan Santai",
   rest: "Istirahat",
-};
+} satisfies Record<string, string>;
+
+export function normalizeFactor(value: string) {
+  return value === "school" ? "education" : value;
+}
+
+export function normalizeActivity(value: string) {
+  if (value === "coding" || value === "gaming") {
+    return "hobby";
+  }
+
+  if (value === "study") {
+    return "learning";
+  }
+
+  if (value === "talking") {
+    return "socializing";
+  }
+
+  return value;
+}
 
 export function isMood(value: string): value is Mood {
   return moodOptions.includes(value as Mood);

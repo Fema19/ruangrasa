@@ -50,8 +50,7 @@ export default async function DashboardPage() {
   const todayJournal = journals.find((journal) => journal.journal_date === today);
   const dominantMood = getDominantMood(journals);
   const averageIntensity = getAverageIntensity(journals);
-  const displayName =
-    profile?.full_name?.trim() || user.email?.split("@")[0] || "Teman";
+  const displayName = profile?.full_name?.trim() || "teman";
 
   const stats = [
     {
@@ -76,23 +75,23 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      <section className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-start">
+      <section className="grid gap-5 animate-soft-fade-up lg:grid-cols-[1fr_auto] lg:items-start">
         <div>
-          <p className="text-sm font-medium text-violet-200">
+          <p className="text-sm font-medium text-emerald-800">
             Dashboard {month.label}
           </p>
-          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
-            Halo, {displayName}
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl lg:text-5xl">
+            Halo, {displayName} 👋
           </h1>
-          <div className="mt-3 space-y-1 text-sm text-slate-300">
-            <p>{user.email}</p>
-            <p>Nama profil: {profile?.full_name || "Belum diisi"}</p>
+          <div className="mt-3 space-y-1 text-sm leading-6 text-slate-600">
+            <p>Apa yang kamu rasakan hari ini?</p>
+            <p>Luangkan waktu sebentar untuk mencatat perasaanmu.</p>
           </div>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
           <Link
             href="/journals/new"
-            className="rounded-xl bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 px-5 py-3 text-center font-semibold text-white shadow-lg shadow-violet-950/30 transition hover:scale-[1.01]"
+            className="w-full rounded-xl bg-gradient-to-r from-emerald-700 to-teal-600 px-5 py-3 text-center font-semibold text-white shadow-lg shadow-emerald-700/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] hover:opacity-90 sm:w-auto"
           >
             Tambah Jurnal
           </Link>
@@ -101,73 +100,74 @@ export default async function DashboardPage() {
       </section>
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {stats.map((stat) => (
+        {stats.map((stat, index) => (
           <article
             key={stat.label}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-slate-950/20"
+            className="rounded-2xl border border-white/35 bg-[#fffaf0]/45 p-4 shadow-[0_20px_60px_rgba(71,85,105,0.14)] backdrop-blur-xl animate-soft-scale-in transition-all duration-300 hover:-translate-y-1 sm:rounded-3xl sm:p-6"
+            style={{ animationDelay: `${index * 80}ms` }}
           >
-            <p className="text-sm text-slate-300">{stat.label}</p>
+            <p className="text-sm text-slate-600">{stat.label}</p>
             <p className="mt-3 text-2xl font-bold">{stat.value}</p>
           </article>
         ))}
       </section>
 
       <section className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
-        <article className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-slate-950/20">
-          <div className="flex items-start justify-between gap-4">
+        <article className="rounded-2xl border border-white/35 bg-[#fffaf0]/45 p-4 shadow-[0_20px_60px_rgba(71,85,105,0.14)] backdrop-blur-xl animate-soft-fade-up sm:rounded-3xl sm:p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <h2 className="text-xl font-semibold">Ringkasan jurnal hari ini</h2>
-              <p className="mt-2 text-sm text-slate-300">{formatDateId(today)}</p>
+              <p className="mt-2 text-sm text-slate-600">{formatDateId(today)}</p>
             </div>
             <Link
               href={todayJournal ? `/journals/${todayJournal.id}` : "/journals/new"}
-              className="rounded-xl border border-white/10 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:border-white/25 hover:bg-white/5"
+              className="w-full rounded-xl border border-white/45 bg-[#fffaf0]/35 px-4 py-2 text-center text-sm font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf0]/50 hover:scale-[1.02] sm:w-auto"
             >
-              {todayJournal ? "Lihat" : "Tambah"}
+              {todayJournal ? "Lihat jurnal" : "Tulis Jurnal Hari Ini"}
             </Link>
           </div>
 
           {todayJournal ? (
-            <div className="mt-5 rounded-2xl border border-white/10 bg-slate-950/55 p-4">
+            <div className="mt-5 rounded-2xl border border-white/40 bg-[#fffaf0]/35 p-4">
               <p className="text-lg font-semibold">
                 {moodEmojis[todayJournal.mood]} {moodLabels[todayJournal.mood]}{" "}
                 · Intensity {todayJournal.intensity}
               </p>
-              <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-300">
+              <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-600">
                 {todayJournal.note || "Tidak ada catatan tambahan."}
               </p>
-              <p className="mt-4 text-sm text-emerald-200">
+              <p className="mt-4 text-sm text-emerald-700">
                 Kamu sudah menulis jurnal hari ini.
               </p>
             </div>
           ) : (
-            <div className="mt-5 rounded-2xl border border-dashed border-white/15 bg-slate-950/35 p-5">
+            <div className="mt-5 rounded-2xl border border-dashed border-white/45 bg-[#fffaf0]/35 p-5">
               <p className="font-semibold">Kamu belum menulis jurnal hari ini.</p>
-              <p className="mt-2 text-sm leading-6 text-slate-300">
+              <p className="mt-2 text-sm leading-6 text-slate-600">
                 Ambil beberapa menit untuk memberi nama pada perasaanmu.
               </p>
             </div>
           )}
         </article>
 
-        <article className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-slate-950/20">
+        <article className="rounded-2xl border border-white/35 bg-[#fffaf0]/45 p-4 shadow-[0_20px_60px_rgba(71,85,105,0.14)] backdrop-blur-xl animate-soft-fade-up sm:rounded-3xl sm:p-6">
           <h2 className="text-xl font-semibold">Arah cepat</h2>
           <div className="mt-5 grid gap-3">
             <Link
               href="/journals"
-              className="rounded-xl border border-white/10 bg-slate-950/40 px-4 py-3 font-semibold text-slate-200 transition hover:border-white/25 hover:bg-white/10"
+              className="rounded-xl border border-white/45 bg-[#fffaf0]/35 px-4 py-3 font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf0]/50"
             >
               Lihat semua jurnal
             </Link>
             <Link
               href="/mood-tracker"
-              className="rounded-xl border border-white/10 bg-slate-950/40 px-4 py-3 font-semibold text-slate-200 transition hover:border-white/25 hover:bg-white/10"
+              className="rounded-xl border border-white/45 bg-[#fffaf0]/35 px-4 py-3 font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf0]/50"
             >
               Buka mood tracker
             </Link>
             <Link
               href="/profile"
-              className="rounded-xl border border-white/10 bg-slate-950/40 px-4 py-3 font-semibold text-slate-200 transition hover:border-white/25 hover:bg-white/10"
+              className="rounded-xl border border-white/45 bg-[#fffaf0]/35 px-4 py-3 font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf0]/50"
             >
               Update profile
             </Link>

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
+import { LAST_ACTIVITY_COOKIE, LAST_ACTIVITY_KEY } from "@/lib/idle-timeout";
 
 type LogoutButtonProps = {
   compact?: boolean;
@@ -15,6 +16,8 @@ export function LogoutButton({ compact = false }: LogoutButtonProps) {
 
   async function handleLogout() {
     setLoading(true);
+    window.localStorage.removeItem(LAST_ACTIVITY_KEY);
+    document.cookie = `${LAST_ACTIVITY_COOKIE}=; path=/; max-age=0; SameSite=Lax`;
     await supabase.auth.signOut();
     router.replace("/login");
     router.refresh();
@@ -27,8 +30,8 @@ export function LogoutButton({ compact = false }: LogoutButtonProps) {
       disabled={loading}
       className={
         compact
-          ? "rounded-lg border border-white/10 px-3 py-2 text-sm font-semibold text-slate-200 transition hover:border-white/25 hover:bg-white/5 disabled:opacity-60"
-          : "rounded-xl border border-white/10 px-5 py-3 font-semibold text-slate-200 transition hover:border-white/25 hover:bg-white/5 disabled:opacity-60"
+          ? "rounded-lg border border-white/45 bg-[#fffaf0]/35 px-3 py-2 text-sm font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf0]/50 disabled:opacity-60 disabled:hover:translate-y-0"
+          : "rounded-xl border border-white/45 bg-[#fffaf0]/35 px-5 py-3 font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf0]/50 disabled:opacity-60 disabled:hover:translate-y-0"
       }
     >
       {loading ? "Logout..." : "Logout"}

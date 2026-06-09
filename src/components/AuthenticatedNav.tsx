@@ -15,17 +15,20 @@ export function AuthenticatedNav() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/85 backdrop-blur">
-      <nav className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-20 border-b border-white/35 bg-[#fffaf0]/35 shadow-[0_12px_36px_rgba(71,85,105,0.12)] backdrop-blur-xl">
+      <nav className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4 lg:px-8">
         <div className="flex items-center justify-between gap-4">
-          <Link href="/dashboard" className="text-lg font-semibold text-white">
+          <Link
+            href="/dashboard"
+            className="text-lg font-semibold text-slate-800"
+          >
             RuangRasa
           </Link>
           <div className="hidden sm:block">
             <LogoutButton compact />
           </div>
         </div>
-        <div className="flex gap-2 overflow-x-auto pb-1">
+        <div className="flex gap-2 overflow-x-auto pb-1 whitespace-nowrap">
           {navItems.map((item) => {
             const active =
               item.href === "/dashboard"
@@ -38,8 +41,8 @@ export function AuthenticatedNav() {
                 href={item.href}
                 className={
                   active
-                    ? "shrink-0 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-950"
-                    : "shrink-0 rounded-xl border border-white/10 px-4 py-2 text-sm font-semibold text-slate-300 transition hover:border-white/25 hover:bg-white/5 hover:text-white"
+                    ? "shrink-0 rounded-xl bg-emerald-800 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-emerald-700/20 transition-all duration-300"
+                    : "shrink-0 rounded-xl border border-white/45 bg-[#fffaf0]/35 px-4 py-2 text-sm font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf0]/50 hover:text-emerald-800"
                 }
               >
                 {item.label}

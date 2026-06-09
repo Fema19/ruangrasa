@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020617;
-  --foreground: #f8fafc;
+  --background: #cfd8c5;
+  --foreground: #1e293b;
 }
 
 @theme inline {
@@ -16,4 +16,59 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+@keyframes softFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes softScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slowFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-soft-fade-up {
+  animation: softFadeUp 0.6s ease-out both;
+}
+
+.animate-soft-scale-in {
+  animation: softScaleIn 0.45s ease-out both;
+}
+
+.animate-slow-float {
+  animation: slowFloat 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-soft-fade-up,
+  .animate-soft-scale-in,
+  .animate-slow-float {
+    animation: none;
+  }
 }

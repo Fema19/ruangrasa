@@ -25,41 +25,44 @@ export default async function JournalsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+      <div className="flex flex-col justify-between gap-4 animate-soft-fade-up sm:flex-row sm:items-end">
         <div>
-          <p className="text-sm font-medium text-violet-200">Journals</p>
-          <h1 className="mt-2 text-3xl font-bold">Jurnal perasaanmu</h1>
-          <p className="mt-3 text-sm leading-6 text-slate-300">
+          <p className="text-sm font-medium text-emerald-800">Journals</p>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
+            Jurnal perasaanmu
+          </h1>
+          <p className="mt-3 text-sm leading-6 text-slate-600">
             Semua jurnal diurutkan dari tanggal terbaru.
           </p>
         </div>
         <Link
           href="/journals/new"
-          className="rounded-xl bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 px-5 py-3 text-center font-semibold text-white shadow-lg shadow-violet-950/30 transition hover:scale-[1.01]"
+          className="w-full rounded-xl bg-gradient-to-r from-emerald-700 to-teal-600 px-5 py-3 text-center font-semibold text-white shadow-lg shadow-emerald-700/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] hover:opacity-90 sm:w-auto"
         >
           Tambah Jurnal
         </Link>
       </div>
 
       {journals.length === 0 ? (
-        <section className="rounded-2xl border border-dashed border-white/15 bg-white/5 p-8 text-center shadow-xl shadow-slate-950/20">
+        <section className="rounded-2xl border border-dashed border-white/45 bg-[#fffaf0]/45 p-6 text-center shadow-[0_20px_60px_rgba(71,85,105,0.14)] backdrop-blur-xl animate-soft-scale-in sm:rounded-3xl sm:p-8">
           <h2 className="text-2xl font-semibold">Belum ada jurnal.</h2>
-          <p className="mt-3 text-slate-300">
-            Mulai dengan mencatat perasaanmu hari ini.
+          <p className="mt-3 text-slate-600">
+            Mulai pelan-pelan dari satu catatan kecil hari ini.
           </p>
           <Link
             href="/journals/new"
-            className="mt-6 inline-flex rounded-xl bg-white px-5 py-3 font-semibold text-slate-950 transition hover:bg-slate-100"
+            className="mt-6 inline-flex w-full justify-center rounded-xl bg-gradient-to-r from-emerald-700 to-teal-600 px-5 py-3 font-semibold text-white shadow-lg shadow-emerald-700/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] hover:opacity-90 sm:w-auto"
           >
             Mulai Menulis
           </Link>
         </section>
       ) : (
         <section className="grid gap-4">
-          {journals.map((journal) => (
+          {journals.map((journal, index) => (
             <article
               key={journal.id}
-              className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-slate-950/20"
+              className="rounded-2xl border border-white/35 bg-[#fffaf0]/45 p-4 shadow-[0_20px_60px_rgba(71,85,105,0.14)] backdrop-blur-xl animate-soft-fade-up transition-all duration-300 hover:-translate-y-1 sm:rounded-3xl sm:p-6"
+              style={{ animationDelay: `${index * 70}ms` }}
             >
               <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                 <div className="min-w-0">
@@ -71,27 +74,27 @@ export default async function JournalsPage() {
                       <h2 className="text-xl font-semibold">
                         {moodLabels[journal.mood]}
                       </h2>
-                      <p className="text-sm text-slate-300">
+                      <p className="text-sm text-slate-600">
                         {formatDateId(journal.journal_date)} · Intensity{" "}
                         {journal.intensity}
                       </p>
                     </div>
                   </div>
-                  <p className="mt-4 line-clamp-2 text-sm leading-6 text-slate-300">
+                  <p className="mt-4 line-clamp-2 text-sm leading-6 text-slate-600">
                     {journal.note || "Tidak ada catatan tambahan."}
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 sm:justify-end">
                   <Link
                     href={`/journals/${journal.id}`}
-                    className="rounded-lg border border-white/10 px-3 py-2 text-sm font-semibold text-slate-200 transition hover:border-white/25 hover:bg-white/5"
+                    className="flex-1 rounded-lg border border-white/45 bg-[#fffaf0]/35 px-3 py-2 text-center text-sm font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf0]/50 sm:flex-none"
                   >
                     Detail
                   </Link>
                   <Link
                     href={`/journals/${journal.id}/edit`}
-                    className="rounded-lg border border-white/10 px-3 py-2 text-sm font-semibold text-slate-200 transition hover:border-white/25 hover:bg-white/5"
+                    className="flex-1 rounded-lg border border-white/45 bg-[#fffaf0]/35 px-3 py-2 text-center text-sm font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf0]/50 sm:flex-none"
                   >
                     Edit
                   </Link>

@@ -8,9 +8,12 @@ import {
   activityOptions,
   factorLabels,
   factorOptions,
+  moodColors,
   moodEmojis,
   moodLabels,
   moodOptions,
+  normalizeActivity,
+  normalizeFactor,
 } from "@/lib/mood";
 import type { Mood } from "@/types/database";
 
@@ -42,12 +45,16 @@ export function JournalForm({
 }: JournalFormProps) {
   const [state, formAction, pending] = useActionState(action, initialState);
   const [intensity, setIntensity] = useState(initialValue?.intensity ?? 5);
-  const selectedFactors = new Set(initialValue?.factors ?? []);
-  const selectedActivities = new Set(initialValue?.activities ?? []);
+  const selectedFactors = new Set(
+    (initialValue?.factors ?? []).map(normalizeFactor)
+  );
+  const selectedActivities = new Set(
+    (initialValue?.activities ?? []).map(normalizeActivity)
+  );
 
   return (
-    <form action={formAction} className="space-y-8">
-      <section className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-slate-950/20">
+    <form action={formAction} className="space-y-6 animate-soft-fade-up sm:space-y-8">
+      <section className="rounded-2xl border border-white/35 bg-[#fffaf0]/45 p-4 shadow-[0_20px_60px_rgba(71,85,105,0.14)] backdrop-blur-xl animate-soft-scale-in sm:rounded-3xl sm:p-6">
         <h2 className="text-lg font-semibold">Mood</h2>
         <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {moodOptions.map((mood) => (
@@ -60,7 +67,9 @@ export function JournalForm({
                 className="peer sr-only"
                 required
               />
-              <span className="flex min-h-28 flex-col items-center justify-center rounded-2xl border border-white/10 bg-slate-950/55 p-4 text-center transition peer-checked:border-violet-300 peer-checked:bg-violet-400/15">
+              <span
+                className={`flex min-h-24 flex-col items-center justify-center rounded-2xl border p-3 text-center transition-all duration-300 hover:-translate-y-0.5 hover:brightness-[1.03] peer-checked:ring-2 peer-checked:ring-emerald-700/30 sm:min-h-28 sm:p-4 ${moodColors[mood]}`}
+              >
                 <span className="text-3xl">{moodEmojis[mood]}</span>
                 <span className="mt-3 text-sm font-semibold">
                   {moodLabels[mood]}
@@ -71,10 +80,10 @@ export function JournalForm({
         </div>
       </section>
 
-      <section className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-slate-950/20">
+      <section className="rounded-2xl border border-white/35 bg-[#fffaf0]/45 p-4 shadow-[0_20px_60px_rgba(71,85,105,0.14)] backdrop-blur-xl animate-soft-scale-in sm:rounded-3xl sm:p-6">
         <div className="grid gap-5 md:grid-cols-2">
           <label>
-            <span className="text-sm font-medium text-slate-200">
+            <span className="text-sm font-medium text-slate-700">
               Intensity
             </span>
             <div className="mt-3 flex items-center gap-4">
@@ -85,7 +94,7 @@ export function JournalForm({
                 max={10}
                 value={intensity}
                 onChange={(event) => setIntensity(Number(event.target.value))}
-                className="w-full accent-violet-400"
+                className="w-full accent-emerald-700"
                 required
               />
               <input
@@ -94,39 +103,39 @@ export function JournalForm({
                 max={10}
                 value={intensity}
                 onChange={(event) => setIntensity(Number(event.target.value))}
-                className="w-20 rounded-xl border border-white/10 bg-slate-950/70 px-3 py-2 text-center text-white outline-none focus:border-violet-300"
+                className="w-20 rounded-xl border border-white/45 bg-[#fffaf0]/35 px-3 py-2 text-center text-slate-800 outline-none transition-all duration-300 placeholder:text-slate-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/30 focus:bg-[#fffaf0]/50"
                 aria-label="Nilai intensity"
               />
             </div>
           </label>
 
           <label>
-            <span className="text-sm font-medium text-slate-200">
+            <span className="text-sm font-medium text-slate-700">
               Tanggal jurnal
             </span>
             <input
               type="date"
               name="journal_date"
               defaultValue={initialValue?.journal_date}
-              className="mt-3 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white outline-none focus:border-violet-300"
+              className="mt-3 w-full rounded-xl border border-white/45 bg-[#fffaf0]/35 px-4 py-3 text-slate-800 outline-none transition-all duration-300 placeholder:text-slate-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/30 focus:bg-[#fffaf0]/50"
               required
             />
           </label>
         </div>
 
         <label className="mt-5 block">
-          <span className="text-sm font-medium text-slate-200">Catatan</span>
+          <span className="text-sm font-medium text-slate-700">Catatan</span>
           <textarea
             name="note"
             defaultValue={initialValue?.note ?? ""}
             rows={8}
             placeholder="Tulis apa yang sedang kamu rasakan..."
-            className="mt-3 w-full resize-y rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-violet-300"
+            className="mt-3 w-full resize-y rounded-xl border border-white/45 bg-[#fffaf0]/35 px-4 py-3 text-slate-800 outline-none transition-all duration-300 placeholder:text-slate-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/30 focus:bg-[#fffaf0]/50"
           />
         </label>
       </section>
 
-      <section className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-slate-950/20">
+      <section className="rounded-2xl border border-white/35 bg-[#fffaf0]/45 p-4 shadow-[0_20px_60px_rgba(71,85,105,0.14)] backdrop-blur-xl animate-soft-scale-in sm:rounded-3xl sm:p-6">
         <h2 className="text-lg font-semibold">Faktor</h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {factorOptions.map((factor) => (
@@ -138,7 +147,7 @@ export function JournalForm({
                 defaultChecked={selectedFactors.has(factor)}
                 className="peer sr-only"
               />
-              <span className="block rounded-xl border border-white/10 bg-slate-950/55 px-4 py-3 text-sm transition peer-checked:border-indigo-300 peer-checked:bg-indigo-400/15">
+              <span className="block rounded-xl border border-white/40 bg-[#fffaf0]/35 px-4 py-3 text-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf0]/50 peer-checked:border-emerald-700 peer-checked:bg-emerald-700/15">
                 {factorLabels[factor]}
               </span>
             </label>
@@ -146,7 +155,7 @@ export function JournalForm({
         </div>
       </section>
 
-      <section className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-slate-950/20">
+      <section className="rounded-2xl border border-white/35 bg-[#fffaf0]/45 p-4 shadow-[0_20px_60px_rgba(71,85,105,0.14)] backdrop-blur-xl animate-soft-scale-in sm:rounded-3xl sm:p-6">
         <h2 className="text-lg font-semibold">Aktivitas</h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {activityOptions.map((activity) => (
@@ -158,7 +167,7 @@ export function JournalForm({
                 defaultChecked={selectedActivities.has(activity)}
                 className="peer sr-only"
               />
-              <span className="block rounded-xl border border-white/10 bg-slate-950/55 px-4 py-3 text-sm transition peer-checked:border-pink-300 peer-checked:bg-pink-400/15">
+              <span className="block rounded-xl border border-white/40 bg-[#fffaf0]/35 px-4 py-3 text-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf0]/50 peer-checked:border-emerald-700 peer-checked:bg-emerald-700/15">
                 {activityLabels[activity]}
               </span>
             </label>
@@ -166,20 +175,20 @@ export function JournalForm({
         </div>
       </section>
 
-      <section className="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl shadow-slate-950/20">
+      <section className="rounded-2xl border border-white/35 bg-[#fffaf0]/45 p-4 shadow-[0_20px_60px_rgba(71,85,105,0.14)] backdrop-blur-xl animate-soft-scale-in sm:rounded-3xl sm:p-6">
         <label>
-          <span className="text-sm font-medium text-slate-200">Tags</span>
+          <span className="text-sm font-medium text-slate-700">Tags</span>
           <input
             name="tags"
             defaultValue={(initialValue?.tags ?? []).join(", ")}
             placeholder="contoh: tidur, kerja, keluarga"
-            className="mt-3 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-violet-300"
+            className="mt-3 w-full rounded-xl border border-white/45 bg-[#fffaf0]/35 px-4 py-3 text-slate-800 outline-none transition-all duration-300 placeholder:text-slate-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/30 focus:bg-[#fffaf0]/50"
           />
         </label>
       </section>
 
       {state.error && (
-        <p className="rounded-xl border border-rose-300/20 bg-rose-400/10 px-4 py-3 text-sm text-rose-100">
+        <p className="rounded-xl border border-white/40 bg-[#fffaf0]/35 px-4 py-3 text-sm text-rose-800">
           {state.error}
         </p>
       )}
@@ -187,7 +196,7 @@ export function JournalForm({
       <div className="flex flex-col gap-3 sm:flex-row">
         <button
           disabled={pending}
-          className="rounded-xl bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 px-5 py-3 font-semibold text-white shadow-lg shadow-violet-950/30 transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-xl bg-gradient-to-r from-emerald-700 to-teal-600 px-5 py-3 font-semibold text-white shadow-lg shadow-emerald-700/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:scale-100 sm:w-auto"
         >
           {pending
             ? "Menyimpan..."
@@ -197,7 +206,7 @@ export function JournalForm({
         </button>
         <Link
           href={mode === "create" ? "/journals" : "../"}
-          className="rounded-xl border border-white/10 px-5 py-3 text-center font-semibold text-slate-200 transition hover:border-white/25 hover:bg-white/5"
+          className="w-full rounded-xl border border-white/45 bg-[#fffaf0]/35 px-5 py-3 text-center font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fffaf0]/50 sm:w-auto"
         >
           Batal
         </Link>

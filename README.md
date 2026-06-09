@@ -66,7 +66,6 @@ Contoh mood yang digunakan:
 | Database   | Supabase PostgreSQL                |
 | Backend    | Next.js Server Actions / API Logic |
 | Session    | Supabase SSR                       |
-| Deployment | Vercel                             |
 
 ---
 
